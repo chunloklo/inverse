@@ -37,6 +37,17 @@ def generateFilteredData(path, outPath, fil):
         plt.imsave(join(absOutPath, f), filteredImage)
 
 
+def generateSpecificFilter(filterName):
+    rootPath = 'C:\\Users\\Chunlok Lo\\Documents\\cs4476\\Inverse\\data\\a\\'
+    directories = [join(rootPath, f) for f in listdir(rootPath) if not isfile(join(rootPath, f))]
+
+    saveRootPath = 'C:\\Users\\Chunlok Lo\\Documents\\cs4476\\Inverse\\data\\a_' + filterName '\\'
+    saveDirectories = [join(saveRootPath, f) for f in listdir(saveRootPath) if not isfile(join(saveRootPath, f))]
+
+
+    for i in range(len(directories)):
+        generateFilteredData(directories[i], saveDirectories[i], filterName)
+
 
 if __name__ == '__main__':
 
@@ -49,3 +60,5 @@ if __name__ == '__main__':
 
     for i in range(len(directories)):
         generateFilteredData(directories[i], saveDirectories[i], 'clarendon')
+
+
