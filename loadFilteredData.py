@@ -7,24 +7,24 @@ import matplotlib.pyplot as plt
 
 from sklearn.utils import shuffle
 
-def loadFilteredData(path, filPath):
+def loadFilteredData(path):
     abspath = os.path.abspath(path)
-    absFilPath = os.path.abspath(filPath)
+    #absFilPath = os.path.abspath(filPath)
     files = [f for f in listdir(abspath) if isfile(join(abspath, f))]
 
     imgList = []
-    imgFilteredList = []
+    #imgFilteredList = []
 
     for f in files:
         img = plt.imread(join(abspath, f))
         imgList.append(img)
 
-        imgFil = plt.imread(join(absFilPath, f))
-        imgFilteredList.append(imgFil)
+        #imgFil = plt.imread(join(absFilPath, f))
+        #imgFilteredList.append(imgFil)
     imgData = np.stack(imgList)
-    imgFilteredData = np.stack(imgFilteredList)
+    #imgFilteredData = np.stack(imgFilteredList)
 
-    return imgData, imgFilteredData
+    return imgData#, imgFilteredData
 
 def createData(images, trainPercentage):
     categories = len(images)
@@ -66,38 +66,40 @@ def createData(images, trainPercentage):
     return X, y, Xtest, ytest
 
 
-def loadTopicData(topic):
-    print('Loading Topic1: ' + topic)
+def loadTopicData(topic, fil):
+    print('Loading Topic: ' + topic)
     path = 'C:\\Users\\Chunlok Lo\\Documents\\cs4476\\Inverse\\data\\a\\' + topic
-    filPath = 'C:\\Users\\Chunlok Lo\\Documents\\cs4476\\Inverse\\data\\a_clarendon\\' + topic
+    filPath = 'C:\\Users\\Chunlok Lo\\Documents\\cs4476\\Inverse\\data\\a_' + fil + '\\' + topic
 
-    origImg, filImg = loadFilteredData(path, filPath)
-    return origImg, filImg
+    if fil == 'original':
+        filPath = path
+    imgs = loadFilteredData(filPath)
+    return imgs
 
-def loadAllTopicData():
+def loadAllTopicData(fil):
     path = 'C:\\Users\\Chunlok Lo\\Documents\\cs4476\\Inverse\\data\\a\\'
-    filPath = 'C:\\Users\\Chunlok Lo\\Documents\\cs4476\\Inverse\\data\\a_clarendon\\'
+    filPath = 'C:\\Users\\Chunlok Lo\\Documents\\cs4476\\Inverse\\data\\a_' + fil + '\\'
     topics = [f for f in listdir(path) if not isfile(join(path, f))]
     print(topics)
 
-    origImg = []
+    #origImg = []
     filImg = []
     for t in topics:
-        origImg_t, filImg_t = loadTopicData(t)
-        origImg.append(origImg_t)
+        filImg_t = loadTopicData(t, fil)
         filImg.append(filImg_t)
 
-    origImg = np.vstack(origImg)
+    #origImg = np.vstack(origImg)
     filImg = np.vstack(filImg)
 
-    print(origImg.shape)
+    #print(origImg.shape)
     print(filImg.shape)
 
-    return origImg, filImg
+    return filImg
 
 
 if __name__ == '__main__':
-    origImg, filimg = loadAllTopicData()
+    pass
+    #origImg, filimg = loadAllTopicData()
 
 
     # path = 'C:\\Users\\Chunlok Lo\\Documents\\cs4476\\Inverse\\data\\a\\abbey'

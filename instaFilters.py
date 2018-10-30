@@ -85,9 +85,9 @@ def clarendon(image):
     #im = change_saturation(im, 1.5)
     #im = contrast_adjust(im, [0, 0.1, 0.5, 0.7, 0.9, 1])
     r, g, b = split_image_into_channels(im)
-    r = channel_adjust(r, [0, 0.20, 0.5, 0.9, 1])
-    g = channel_adjust(g, [0, 0.25, 0.6, 0.8, 1])
-    b = channel_adjust(b, [0, 0.3, 0.55, 0.8, 1])
+    r = channel_adjust(r, [0, 0.15, 0.55, 0.78, 1])
+    g = channel_adjust(g, [0, 0.25, 0.7, 0.8, 1])
+    b = channel_adjust(b, [0, 0.26, 0.7, 0.95, 1])
     im = merge_channels(r, g, b)
     return im
 
