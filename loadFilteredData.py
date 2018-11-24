@@ -65,6 +65,45 @@ def createData(images, trainPercentage):
     Xtest, ytest = shuffle(Xtest, ytest, random_state=0)
     return X, y, Xtest, ytest
 
+def createDataPlaces(images, trainPercentage):
+    categories = len(images)
+
+    imgList = []
+    vectors = []
+
+    testImgList = []
+    testVectors = []
+
+
+    #data for original image
+    for c in range(categories):
+        numImages = images[c].shape[0]
+        print(numImages)
+        numTrain = int(numImages * trainPercentage)
+        imgList.append(images[c][:numTrain])
+
+        featureVector = np.zeros((numTrain, categories))
+        featureVector[:, c] = 1
+        vectors.append(featureVector)
+
+        #testing data
+        testImgList.append(images[c][numTrain:])
+
+        featureVector = np.zeros((numImages - numTrain, categories))
+        featureVector[:, c] = 1
+        testVectors.append(featureVector)
+
+
+    X = np.vstack(imgList)
+    y = np.vstack(vectors)
+
+    Xtest = np.vstack(testImgList)
+    ytest = np.vstack(testVectors)
+
+    X, y = shuffle(X, y, random_state=0)
+    Xtest, ytest = shuffle(Xtest, ytest, random_state=0)
+    return X, y, Xtest, ytest
+
 
 def loadTopicData(topic, fil):
     print('Loading Topic: ' + topic)
